@@ -71,8 +71,31 @@ class MyHomeState extends State<MyMainWidget> {
           });
         },
       ),
+      drawer: Drawer(
+        child: getMainDrawer(),
+      ),
     );
   }
+}
+
+Widget getMainDrawer() {
+  Widget w = DrawerHeader(
+    child: Column(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(bottom: 10),
+          child: CircleAvatar(
+              backgroundImage: AssetImage('assets/cat2.jpg'), maxRadius: 38),
+        ),
+        Text(
+          '1123',
+          style: TextStyle(
+              color: Colors.green, fontStyle: FontStyle.italic, fontSize: 18),
+        )
+      ],
+    ),
+  ); //Flutter框架自带的DrawerHeader控件，表示抽屉的头
+  return w;
 }
 
 /// 根据当前选中页的情况，切换main UI区的显示内容
