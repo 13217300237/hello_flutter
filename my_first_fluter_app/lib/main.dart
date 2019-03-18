@@ -1,3 +1,4 @@
+import 'package:HankFlutterTest/pages/banner_detail.dart';
 import 'package:HankFlutterTest/pages/second_page.dart';
 import 'package:HankFlutterTest/widgets/article_item.dart';
 import 'package:banner_view/banner_view.dart';
@@ -141,16 +142,24 @@ class HomeBannerContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //这个build会随着setState的触发而多次执行
-    return new Container(
+    Container container = new Container(
       alignment: Alignment.topCenter,
       height: 300.0,
-      child: _bannerView(),
+      child: _bannerView(context),
     );
+
+    // 换成一个ListView吧
+
+    ListView listView = new ListView(
+      children: <Widget>[container],
+      scrollDirection: Axis.vertical,
+    );
+    return listView;
   }
 }
 
 ///轮播图控件
-Widget _bannerView() {
+Widget _bannerView(context) {
   //  用一个list存储所有的banner控件（其实是Image）
   List<Widget> bannerWidgetList = new List<Widget>();
   //如果数据源是空，就不必去解析加载了.
@@ -158,10 +167,20 @@ Widget _bannerView() {
     return null;
   //数据源不为空，就去逐个解析
   DataManager.bannerImages.forEach((item) {
-    bannerWidgetList.add(Image.network(
-      item['imagePath'],
-      fit: BoxFit.cover,
-    ));
+    InkWell inkwell = InkWell(
+      child: Image.network(
+        item['imagePath'],
+        fit: BoxFit.cover,
+      ),
+      onTap: () {
+        // 跳转到web页
+        Navigator.push(context, MaterialPageRoute(builder: (_) {
+          return BannerWebView(item);
+        }));
+      },
+    );
+
+    bannerWidgetList.add(inkwell);
   });
 
   //然后把 bannerWidgetList 传进去，按照返回一个BannerView

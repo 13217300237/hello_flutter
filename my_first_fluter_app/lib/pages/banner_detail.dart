@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
-class ArticleWebView extends StatefulWidget {
+class BannerWebView extends StatefulWidget {
   final data;
 
-  ArticleWebView(this.data);
+  BannerWebView(this.data);
 
   @override
-  State<StatefulWidget> createState() => ArticleWebViewState();
+  State<StatefulWidget> createState() => BannerWebViewState();
 }
 
 //这里的泛型，是为了让State里面，使用ArticleWebView中的字段
-class ArticleWebViewState extends State<ArticleWebView> {
+class BannerWebViewState extends State<BannerWebView> {
   bool ifLoading = false;// 控制进度条透明度的变量
   FlutterWebviewPlugin flutterWebviewPlugin;
 
@@ -54,7 +54,7 @@ class ArticleWebViewState extends State<ArticleWebView> {
         ),
         bottomOpacity: ifLoading ? 1.0 : 0.0,
       ),
-      url: widget.data['link'],
+      url: widget.data['url'],
     );
   }
 }
