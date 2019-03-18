@@ -1,9 +1,10 @@
+import 'package:HankFlutterTest/pages/article_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
 
-/// 
+///
 ///文章item的布局在这里完成
-/// 布局嵌套：一层套一层。下面的层级关系是: 
+/// 布局嵌套：一层套一层。下面的层级关系是:
 /// Card{
 ///  {
 ///   Column{Row,Text,Text}
@@ -23,7 +24,8 @@ class ArticleItem extends StatelessWidget {
     Row row = new Row(
       children: <Widget>[
         new Expanded(
-          child: Text.rich(TextSpan(children: [//Text.rich富文本，TextSpan的组合
+          child: Text.rich(TextSpan(children: [
+            //Text.rich富文本，TextSpan的组合
             TextSpan(text: '作者  '),
             TextSpan(
                 text: data['author'],
@@ -77,8 +79,11 @@ class ArticleItem extends StatelessWidget {
       child: InkWell(
         child: column,
         onTap: () {
-          Toast.show(data['title'], context,
-              duration: Toast.LENGTH_SHORT, gravity: Toast.CENTER);
+          // Toast.show(data['title'], context,
+          //     duration: Toast.LENGTH_SHORT, gravity: Toast.CENTER);
+          Navigator.push(context, MaterialPageRoute(builder: (_) {
+            return ArticleWebView(data);
+          }));
         },
       ),
       elevation: 10,
