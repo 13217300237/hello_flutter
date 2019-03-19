@@ -24,13 +24,15 @@ class HttpManager {
   }
 
   ///对外公开的方法
-  request(url, {String method = 'get'}) async {
-    print("请求的url是：" + url);
+  request(url, {data, String method = "get"}) async {
     try {
-      Options options = new Options(method: method);
-      Response response = await _dio.request(url, options: options);
-      return response.data; //返回成功，则是map，失败，null
+      Options option = new Options(method: method);
+      Response response = await _dio.request(url, data: data, options: option);
+      print(response.request.headers);
+      print(response.data);
+      return response.data;
     } catch (e) {
+      print(e);
       return null;
     }
   }

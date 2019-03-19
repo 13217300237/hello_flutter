@@ -1,8 +1,13 @@
+import 'package:dio/dio.dart';
+import 'package:toast/toast.dart';
+
 import 'http_manager.dart';
 
 class DataManager {
   static List bannerImages; //轮播图list
   static List articles; //文章list
+  static List websiteCollects; //网站收藏
+  static List articleCollects; //文章收藏
 
   static const String baseUrl = "http://www.wanandroid.com/";
   static const String _article_url = 'article/list/';
@@ -27,5 +32,37 @@ class DataManager {
       print(_banner_url + '接口返回为空');
     }
     articles = map['data']['datas'];
+  }
+
+  //登录
+  static const String LOGIN = "user/login";
+  //登录
+  static login(String username, String password) async {
+    var formData = FormData.from({
+      "username": username,
+      "password": password,
+    });
+    return await HttpManager.getInstance()
+        .request(LOGIN, data: formData, method: "post");
+  }
+
+  //收藏
+  static const String COLLECT = "lg/collect/list/";
+  static getCollects(int page) async {
+    return await HttpManager.getInstance().request("$COLLECT/$page/json");
+  }
+
+  //登录，取收藏，一条龙服务
+  static executeLoginAndGetCollect() async {
+    var result = await login('zhouzhou', '123456'); //登录完成，//诶！？？？为什么自动登录会报302？
+    // if (result['errorCode'] == -1) {
+    //   print(result['errorMsg']);
+    // } else {
+
+    // }
+    // //现在取收藏
+    // var res2 = await getCollects(0);
+    // //解析结果，将结果注入到websiteCollects,articleCollects
+    // print('取得了收藏数据');
   }
 }

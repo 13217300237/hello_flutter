@@ -38,6 +38,12 @@ class MyHomeState extends State<MyMainWidget> {
     super.initState();
     initBanner(); //发起异步任务
     initListView();
+
+    loginAndGetCollect();
+  }
+
+  void loginAndGetCollect() async {
+    await DataManager.executeLoginAndGetCollect();
   }
 
   initBanner() async {
@@ -81,13 +87,11 @@ class MyHomeState extends State<MyMainWidget> {
       ),
       drawer: Drawer(
         // 滑出抽屉
-        child: getMainDrawer(),
+        child: getMainDrawer(context),
       ),
     );
   }
 }
-
-
 
 /// 根据当前选中页的情况，切换main UI区的显示内容
 Widget getCurrentMainWidget(context) {
