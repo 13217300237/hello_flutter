@@ -81,6 +81,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.3.1"
+  gradient_bottom_navigation_bar:
+    dependency: "direct main"
+    description:
+      name: gradient_bottom_navigation_bar
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.0+4"
   matcher:
     dependency: transitive
     description:

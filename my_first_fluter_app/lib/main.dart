@@ -1,9 +1,10 @@
 import 'package:HankFlutterTest/pages/banner_detail.dart';
 import 'package:HankFlutterTest/pages/second_page.dart';
 import 'package:HankFlutterTest/widgets/article_item.dart';
+import 'package:HankFlutterTest/widgets/drawer_layout.dart';
 import 'package:banner_view/banner_view.dart';
-import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
+import 'package:gradient_bottom_navigation_bar/gradient_bottom_navigation_bar.dart';
 import 'data/data_manager.dart';
 
 void main() => runApp(MyApp());
@@ -57,46 +58,36 @@ class MyHomeState extends State<MyMainWidget> {
         title: Text('你好Flutter!'),
       ),
       body: getCurrentMainWidget(context), //主界面的body应该要根据不同的情况进行切换
-      bottomNavigationBar: FancyBottomNavigation(
-        tabs: [
-          TabData(iconData: Icons.home, title: '首页'),
-          TabData(iconData: Icons.search, title: 'tab1'),
-          TabData(iconData: Icons.shop, title: 'tab2'),
+      bottomNavigationBar: GradientBottomNavigationBar(
+        backgroundColorStart: Colors.white,
+        backgroundColorEnd: Colors.white,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              title: Text('Home'),
+              backgroundColor: Colors.green),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.business), title: Text('Business')),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.school), title: Text('School')),
         ],
-        onTabChangedListener: (i) {
-          //切换tab的事件，
+        currentIndex: mCurrentPage, //当前被选中的index
+        fixedColor: Colors.green, // 图片和文字的填充色
+        onTap: (i) {
           setState(() {
-            //刷新主state
             mCurrentPage = i;
           });
         },
       ),
       drawer: Drawer(
+        // 滑出抽屉
         child: getMainDrawer(),
       ),
     );
   }
 }
 
-Widget getMainDrawer() {
-  Widget w = DrawerHeader(
-    child: Column(
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.only(bottom: 10),
-          child: CircleAvatar(
-              backgroundImage: AssetImage('assets/cat2.jpg'), maxRadius: 38),
-        ),
-        Text(
-          '1123',
-          style: TextStyle(
-              color: Colors.green, fontStyle: FontStyle.italic, fontSize: 18),
-        )
-      ],
-    ),
-  ); //Flutter框架自带的DrawerHeader控件，表示抽屉的头
-  return w;
-}
+
 
 /// 根据当前选中页的情况，切换main UI区的显示内容
 Widget getCurrentMainWidget(context) {
