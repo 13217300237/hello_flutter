@@ -1,10 +1,16 @@
+import 'dart:io';
+
+import 'package:HankFlutterTest/data/data_manager.dart';
+import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
-import 'data_manager.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 
 ///第三方网络库，必须封装，这是铁则
 class HttpManager {
   Dio _dio;
   static HttpManager _instance;
+  PersistCookieJar _persistCookieJar;
 
   //用工厂模式做一个单例
   factory HttpManager.getInstance() {
@@ -21,6 +27,14 @@ class HttpManager {
         receiveTimeout: 3000 //连上了服务器，但是返回超时时间
         );
     _dio = new Dio(options); //给dio加上基础配置
+    _initDio();
+  }
+
+  void _initDio() async {
+    Directory directory = await getApplicationDocumentsDirectory();
+    var path = Directory(join(directory.path, "cookie")).path;
+    _persistCookieJar = PersistCookieJar(dir: path);
+    _dio.interceptors.add(CookieManager(_persistCookieJar));
   }
 
   ///对外公开的方法

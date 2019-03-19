@@ -9,7 +9,7 @@ class DataManager {
   static List websiteCollects; //网站收藏
   static List articleCollects; //文章收藏
 
-  static const String baseUrl = "http://www.wanandroid.com/";
+  static const String baseUrl = "https://www.wanandroid.com/";
   static const String _article_url = 'article/list/';
   static const String _banner_url = 'banner/json';
 
@@ -55,14 +55,14 @@ class DataManager {
   //登录，取收藏，一条龙服务
   static executeLoginAndGetCollect() async {
     var result = await login('zhouzhou', '123456'); //登录完成，//诶！？？？为什么自动登录会报302？
-    // if (result['errorCode'] == -1) {
-    //   print(result['errorMsg']);
-    // } else {
+    if (result['errorCode'] == -1) {
+      print(result['errorMsg']);
+    } else {
 
-    // }
-    // //现在取收藏
-    // var res2 = await getCollects(0);
-    // //解析结果，将结果注入到websiteCollects,articleCollects
-    // print('取得了收藏数据');
+    }
+    //现在取收藏
+    var res2 = await getCollects(0);
+    //解析结果，将结果注入到websiteCollects,articleCollects
+    print('取得了收藏数据');
   }
 }
