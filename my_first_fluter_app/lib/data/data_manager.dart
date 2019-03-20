@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:toast/toast.dart';
+// import 'package:toast/toast.dart';
 
 import 'http_manager.dart';
 
@@ -57,12 +57,10 @@ class DataManager {
     var result = await login('zhouzhou', '123456'); //登录完成，//诶！？？？为什么自动登录会报302？
     if (result['errorCode'] == -1) {
       print(result['errorMsg']);
-    } else {
-
-    }
+    } else {}
     //现在取收藏
     var res2 = await getCollects(0);
     //解析结果，将结果注入到websiteCollects,articleCollects
-    print('取得了收藏数据');
+    print('取得了收藏数据' + res2.runtimeType.toString()); // 现在可以正常取数据了，接下来只需要摆布局
   }
 }
